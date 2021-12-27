@@ -13,9 +13,9 @@ const login = loginForm.querySelector("button");
 //이미지 처리
 function setBackGroundImage() {
     const randomNumber = Math.floor(Math.random() * images.length);
-    const image = images[randomNumber];
-    document.body.style.backGroundImage = `url(${image})`;
-    //background.style.backgroundColor = images[randomNumber];
+    const url = images[randomNumber];
+    const image = `url('${url}')`; 
+    background.style.backgroundImage = image;
 }
 
 setBackGroundImage();
@@ -41,6 +41,9 @@ function doSignUp(event) {
     const password = signUpForm.querySelector("#password").value;
     checkUserInfo(id);
     saveUserInfo(id, password);
+    alert("회원가입 되었습니다.");
+    enableSignUp.setAttribute('hidden',true);
+    signUpForm.setAttribute('hidden',true);
 }
 
 function checkUserInfo(id) {

@@ -9,7 +9,7 @@ const subKey = "todolist";
 //입력
 function addTodoList(event) {
     event.preventDefault(); 
-    const li = document.createElement("li");
+    const li = document.createElement("li");   
     li.appendChild(createTodoText());
     li.appendChild(createDeleteButton());
     ul.appendChild(li);
