@@ -1,3 +1,3 @@
 # vanillajs_miniproject.github.io
 
-hi
+My first front project To Do List 
