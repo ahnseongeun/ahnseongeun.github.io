@@ -1,0 +1,26 @@
+{
+  "name": "lectures",
+  "version": "1.0.0",
+  "description": "Zoom Clone using WebRTC and Socket",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.5",
+    "@babel/node": "^7.16.5",
+    "@babel/preset-env": "^7.16.5",
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "express": "^4.17.2",
+    "pug": "^3.0.2",
+    "socket.io": "^4.4.0",
+    "socket.io-client": "^4.4.0",
+    "ws": "^8.4.0"
+  }
+}
