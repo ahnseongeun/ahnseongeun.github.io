@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My To-Do-List</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body class="body">
+    <div id="clock">
+        00:00:00
+    </div>
+    <div id="weather">
+    </div>
+    <div id="header">
+        <h1 style="color: darkcyan;">Welcome to Todo-list <br></h1>
+        <button id="login">Login</button>
+        <button id="sign-up">Sign Up</button>
+    </div>
+
+    <form id="signUp-form" hidden>
+        <input id="id" required type="text" placeholder="please write your ID">
+        <input id="password" required type="text" placeholder="please write your PASSWORD" size=30><br>
+        <button>Sign Up</button>
+    </form>
+    <form id="login-form" hidden>
+        <input id="id" required type="text" placeholder="please write your ID">
+        <input id="password" required type="text" placeholder="please write your PASSWORD" size=30><br>
+        <button>Login</button>
+    </form>
+    <form id="to-do-list" hidden>
+        <input type="text" placeholder="write your to-do-list!">
+        <button>추가</button>
+        <ul style="list-style-position: inside; text-align:left; margin-left: 45%">
+        </ul>
+    </form>
+
+    <script type="module" src="./clock.js"></script>
+    <script type="module" src="./login.js"></script>
+    <script type="module" src="./todo.js"></script>
+    <script type="module" src="./weather.js"></script>
+</body>
+</html>
