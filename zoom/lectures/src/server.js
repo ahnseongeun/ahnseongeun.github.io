@@ -20,12 +20,19 @@ const httpServer = http.createServer(app);
 const wsServer = SocketIO(httpServer);
 
 wsServer.on("connection", (socket) => {
-    socket.on("enter_room", (msg, done) => {
-        console.log(msg);
-        setTimeout(() => {
-            done("hello from the backend");
-        }, 10000);
-    })
+    socket.onAny((event) => { 
+        console.log(`Socket Event:${event}`);
+    });
+    socket.on("enter_room", (roomName, done) => {
+        console.log(socket.id);
+        console.log(socket.rooms);
+        socket.join(roomName);
+        done();
+        socket.to(roomName).emit("welcome");
+        // setTimeout(() => {
+        //     done("hello from the backend");
+        // }, 10000);
+    });
 });
 
 httpServer.listen(3000, () => console.log(`Listening on http://localhost:3000`));
