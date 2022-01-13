@@ -24,14 +24,21 @@ wsServer.on("connection", (socket) => {
         console.log(`Socket Event:${event}`);
     });
     socket.on("enter_room", (roomName, done) => {
-        console.log(socket.id);
-        console.log(socket.rooms);
+        //console.log(socket.id);
+        //console.log(socket.rooms);
         socket.join(roomName);
         done();
         socket.to(roomName).emit("welcome");
         // setTimeout(() => {
         //     done("hello from the backend");
         // }, 10000);
+    });
+    socket.on("disconnecting", () => {
+        socket.rooms.forEach(room => socket.to(room).emit("bye"));
+    });
+    socket.on("new_message", (msg, room, done) => {
+        socket.to(room).emit("new_message", msg);
+        done();
     });
 });
 
