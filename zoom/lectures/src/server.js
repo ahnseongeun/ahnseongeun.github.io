@@ -19,26 +19,52 @@ app.get("/*", (req, res) => res.redirect("/"));
 const httpServer = http.createServer(app);
 const wsServer = SocketIO(httpServer);
 
+function getPublicRooms() {
+
+  //const sids = wsServer.socket.adapter.sids;
+  //const rooms = wsServer.socket.adapter.rooms;
+  const {
+    sockets: {
+      adapter: { sids, rooms },
+    },
+  } = wsServer;
+  const publicRooms = [];
+  rooms.forEach((_, key) => {
+      if(sids.get(key) === undefined) {
+          publicRooms.push(key);
+      }
+  });
+  return publicRooms;
+}
+
 wsServer.on("connection", (socket) => {
+    socket["nickname"] = "Anonymous"
     socket.onAny((event) => { 
-        console.log(`Socket Event:${event}`);
+        //console.log(wsServer.sockets.adapter);
+        console.log(`Socket Event: ${event}`);
     });
     socket.on("enter_room", (roomName, done) => {
         //console.log(socket.id);
         //console.log(socket.rooms);
         socket.join(roomName);
         done();
-        socket.to(roomName).emit("welcome");
-        // setTimeout(() => {
-        //     done("hello from the backend");
-        // }, 10000);
+        //하나의 소켓에만 메시지를 보내기
+        socket.to(roomName).emit("welcome", socket.nickname);
+        //모든 소켓에 메시지 보내기
+        wsServer.sockets.emit("room_change", getPublicRooms());
     });
     socket.on("disconnecting", () => {
-        socket.rooms.forEach(room => socket.to(room).emit("bye"));
+        socket.rooms.forEach((room) => socket.to(room).emit("bye", socket.nickname));
     });
+    socket.on("disconnect", () => {
+        wsServer.sockets.emit("room_change", getPublicRooms());
+    })
     socket.on("new_message", (msg, room, done) => {
-        socket.to(room).emit("new_message", msg);
+        socket.to(room).emit("new_message", `${socket.nickname}: ${msg}`);
         done();
+    });
+    socket.on("nickname", (nickname) => {
+        socket["nickname"] = nickname
     });
 });
 
