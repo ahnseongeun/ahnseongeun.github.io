@@ -2,6 +2,7 @@ import http from "http";
 //import WebSocket from "ws";
 import express from "express";
 import SocketIO from "socket.io";
+import { count } from "console";
 
 
 const app = express();
@@ -37,6 +38,10 @@ function getPublicRooms() {
   return publicRooms;
 }
 
+function countRoom(roomName) {
+    return wsServer.sockets.adapter.rooms.get(roomName).size;
+}
+
 wsServer.on("connection", (socket) => {
     socket["nickname"] = "Anonymous"
     socket.onAny((event) => { 
@@ -49,12 +54,15 @@ wsServer.on("connection", (socket) => {
         socket.join(roomName);
         done();
         //하나의 소켓에만 메시지를 보내기
-        socket.to(roomName).emit("welcome", socket.nickname);
+        socket.to(roomName).emit("welcome", socket.nickname, countRoom(roomName));
         //모든 소켓에 메시지 보내기
         wsServer.sockets.emit("room_change", getPublicRooms());
     });
+
     socket.on("disconnecting", () => {
-        socket.rooms.forEach((room) => socket.to(room).emit("bye", socket.nickname));
+        socket.rooms.forEach((room) => 
+            socket.to(room).emit("bye", socket.nickname, countRoom(room) - 1)
+        );
     });
     socket.on("disconnect", () => {
         wsServer.sockets.emit("room_change", getPublicRooms());

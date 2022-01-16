@@ -21,3 +21,5 @@ Ctrl + K, Ctrl + F
 모두에게 소켓 전송
 io.sockets.emit("hi","everyone");
 
+챌린지
+1. 닉네임 입력 받고 방 입장하게 만들기
