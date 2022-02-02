@@ -1,10 +1,10 @@
 function createHtml() {
-    return `<h1>This is BoardList Page</h1>`;
+    return `<h1>This is BoardDetail Page</h1>`;
 }
 
 export default class {
     constructor() {
-        document.title = "BoardList";
+        document.title = "BoardDetail";
     }
     async getHtml() {
         return createHtml();
