@@ -6,7 +6,6 @@ export default function customAjax(method, url, obj) {
         xhr.setRequestHeader('Content-type', 'aplication/json');
     }
     xhr.send(JSON.stringify(obj || null));
-
     const promise = new Promise((resolve, reject) => {
         xhr.onreadystatechange = (event) => {
             if(xhr.readyState === XMLHttpRequest.DONE) {

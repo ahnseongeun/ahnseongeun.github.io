@@ -8,6 +8,7 @@ window.addEventListener("popstate", () => {
 document.addEventListener("DOMContentLoaded", () => {
     document.body.addEventListener('click', e => {
         e.preventDefault();
+        console.log("test");
         navigateTo(e.target.href);
     });  
     router();

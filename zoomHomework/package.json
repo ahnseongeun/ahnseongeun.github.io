@@ -2,9 +2,10 @@
   "name": "zoom-homework",
   "version": "1.0.0",
   "description": "vanilla js로 SPA 구현하기 위해서는 router 사용",
-  "main": "server.js",
+  "main": "/static/index.js",
   "scripts": {
-    "start": "webpack-dev-server --open --progress",
+    "start": "webpack serve --mode=development",
+    "bundle": "webpack --watch --mode=development",
     "build": "webpack -w"
   },
   "keywords": [],
@@ -12,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
+    "cors": "^2.8.5",
     "express": "^4.17.2"
   },
   "devDependencies": {

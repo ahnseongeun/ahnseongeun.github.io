@@ -10,8 +10,8 @@ export const navigateTo = url => {
     router();
 }
 
-export async function router() {
-
+export async function router(count) {
+    console.log(count);
     const routes = [
         { path: "/", view: Home},
         { path: "/board", view: BoardList},
@@ -41,9 +41,9 @@ export async function router() {
      const root = document.querySelector("#root");
      root.innerHTML = await view.getHtml();
 
-    //  if( match.route.path === '/board') {
-    //      await view.getBoardList();
-    //  }
+     if( match.route.path === '/board') {
+        await view.getBoardList();
+     }
 
      //view.attachEvent();
 };
