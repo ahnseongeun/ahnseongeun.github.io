@@ -109,18 +109,17 @@ var navigateTo = function navigateTo(url) {
   history.pushState(null, null, url);
   router();
 };
-function router(_x) {
+function router() {
   return _router.apply(this, arguments);
 }
 
 function _router() {
-  _router = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(count) {
+  _router = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
     var routes, pageMatches, match, view, root;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            console.log(count);
             routes = [{
               path: "/",
               view: _views_Home_js__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -156,21 +155,21 @@ function _router() {
 
             view = new match.route.view();
             root = document.querySelector("#root");
-            _context.next = 9;
+            _context.next = 8;
             return view.getHtml();
 
-          case 9:
+          case 8:
             root.innerHTML = _context.sent;
 
             if (!(match.route.path === '/board')) {
-              _context.next = 13;
+              _context.next = 12;
               break;
             }
 
-            _context.next = 13;
+            _context.next = 12;
             return view.getBoardList();
 
-          case 13:
+          case 12:
           case "end":
             return _context.stop();
         }
@@ -10620,7 +10619,6 @@ window.addEventListener("popstate", function () {
 document.addEventListener("DOMContentLoaded", function () {
   document.body.addEventListener('click', function (e) {
     e.preventDefault();
-    console.log("test");
     (0,_router_router_js__WEBPACK_IMPORTED_MODULE_0__.navigateTo)(e.target.href);
   });
   (0,_router_router_js__WEBPACK_IMPORTED_MODULE_0__.router)();

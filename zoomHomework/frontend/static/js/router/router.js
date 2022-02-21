@@ -10,8 +10,7 @@ export const navigateTo = url => {
     router();
 }
 
-export async function router(count) {
-    console.log(count);
+export async function router() {
     const routes = [
         { path: "/", view: Home},
         { path: "/board", view: BoardList},
@@ -45,5 +44,8 @@ export async function router(count) {
         await view.getBoardList();
      }
 
+     if( match.route.path === '/write') {
+        await view.createForm();
+     }
      //view.attachEvent();
 };

@@ -7,7 +7,7 @@ module.exports = {
   entry: ['@babel/polyfill', './frontend/static/js/index.js'],
   // 컴파일 + 번들링된 js 파일이 저장될 경로와 이름 지정
   output: {
-    path: path.resolve(__dirname, 'frontend', 'public', 'js'),
+    path: path.resolve(__dirname, 'frontend', 'public'),
     filename: 'bundle.js',
     clean: true,
   },
