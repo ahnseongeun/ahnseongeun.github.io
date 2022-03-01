@@ -333,6 +333,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ajax_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ajax.js */ "./frontend/static/js/ajax.js");
 /* harmony import */ var _AbstractView_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AbstractView.js */ "./frontend/static/js/views/AbstractView.js");
 /* harmony import */ var _router_router_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../router/router.js */ "./frontend/static/js/router/router.js");
+/* harmony import */ var _WriteBoard_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./WriteBoard.js */ "./frontend/static/js/views/WriteBoard.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
@@ -369,6 +370,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var BoardList = /*#__PURE__*/function (_AbstractView) {
   _inherits(BoardList, _AbstractView);
 
@@ -387,14 +389,14 @@ var BoardList = /*#__PURE__*/function (_AbstractView) {
   }
 
   _createClass(BoardList, [{
-    key: "getBoardList",
+    key: "getHtml",
     value: function () {
-      var _getBoardList = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      var _getHtml = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                return _context.abrupt("return", createHtml());
+                return _context.abrupt("return", createHeader());
 
               case 1:
               case "end":
@@ -402,6 +404,67 @@ var BoardList = /*#__PURE__*/function (_AbstractView) {
             }
           }
         }, _callee);
+      }));
+
+      function getHtml() {
+        return _getHtml.apply(this, arguments);
+      }
+
+      return getHtml;
+    }()
+  }, {
+    key: "getBoardList",
+    value: function () {
+      var _getBoardList = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+        var data, root, _iterator, _step, comment, ul, li1, li2, writeButton;
+
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.t0 = JSON;
+                _context2.next = 3;
+                return (0,_ajax_js__WEBPACK_IMPORTED_MODULE_0__["default"])('GET', "http://localhost:3000/board");
+
+              case 3:
+                _context2.t1 = _context2.sent;
+                data = _context2.t0.parse.call(_context2.t0, _context2.t1);
+                // data크기만큼 게시물 출력함
+                root = document.querySelector('#root');
+                root.innerHTML = createHeader();
+                _iterator = _createForOfIteratorHelper(data.boardList);
+
+                try {
+                  for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                    comment = _step.value;
+                    // 원하는 게시물 출력
+                    ul = document.createElement("ul");
+                    root.appendChild(ul);
+                    li1 = document.createElement('li');
+                    li2 = document.createElement('li');
+                    li1.innerHTML = comment.title;
+                    ul.appendChild(li1);
+                    li2.innerHTML = comment.author;
+                    ul.appendChild(li2);
+                  }
+                } catch (err) {
+                  _iterator.e(err);
+                } finally {
+                  _iterator.f();
+                }
+
+                writeButton = document.createElement('a');
+                writeButton.href = "/write";
+                writeButton.innerHTML = "글쓰기";
+                writeButton.addEventListener('click', createWriteBoard);
+                root.appendChild(writeButton);
+
+              case 14:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
       }));
 
       function getBoardList() {
@@ -417,8 +480,19 @@ var BoardList = /*#__PURE__*/function (_AbstractView) {
 
 
 
-function createHtml() {
-  return _createHtml.apply(this, arguments);
+function createWriteBoard(e) {
+  e.preventDefault();
+  (0,_router_router_js__WEBPACK_IMPORTED_MODULE_2__.navigateTo)(e.target.href);
+}
+
+function createHeader() {
+  var html = "<h1>This is BoardList Page</h1>";
+  return html;
+}
+
+function createFooter() {
+  var html = "<h1>This is BoardList Page</h1>";
+  return html;
 }
 /**
  * fs모듈 관련된 이슈
@@ -429,55 +503,6 @@ async function getBoardListData() {
     return data;
 }
 */
-
-
-function _createHtml() {
-  _createHtml = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-    var data, root, ul, _iterator, _step, comment, li, html;
-
-    return regeneratorRuntime.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            _context2.t0 = JSON;
-            _context2.next = 3;
-            return (0,_ajax_js__WEBPACK_IMPORTED_MODULE_0__["default"])('GET', "http://localhost:3000/board");
-
-          case 3:
-            _context2.t1 = _context2.sent;
-            data = _context2.t0.parse.call(_context2.t0, _context2.t1);
-            // data크기만큼 게시물 출력함
-            root = document.querySelector('#root');
-            ul = document.createElement("ul");
-            root.appendChild(ul);
-            _iterator = _createForOfIteratorHelper(data.boardList);
-
-            try {
-              for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                comment = _step.value;
-                // 원하는 게시물 출력
-                li = document.createElement('li');
-                li.innerHTML = comment.title;
-                ul.appendChild(li);
-              }
-            } catch (err) {
-              _iterator.e(err);
-            } finally {
-              _iterator.f();
-            }
-
-            html = "<h1>This is BoardList Page</h1>";
-            return _context2.abrupt("return", html);
-
-          case 12:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-  return _createHtml.apply(this, arguments);
-}
 
 /***/ }),
 
@@ -661,10 +686,6 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
-function createHtml() {
-  return "<h1> WelCome to Write Board</h1>";
-}
-
 var _default = /*#__PURE__*/function () {
   function _default() {
     _classCallCheck(this, _default);
@@ -680,7 +701,7 @@ var _default = /*#__PURE__*/function () {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                return _context.abrupt("return", createHtml());
+                return _context.abrupt("return", createForm());
 
               case 1:
               case "end":
@@ -696,12 +717,51 @@ var _default = /*#__PURE__*/function () {
 
       return getHtml;
     }()
+  }, {
+    key: "createForm",
+    value: function () {
+      var _createForm = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+        var root, div;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                console.log("test");
+                root = document.querySelector('#root');
+                root.innerHTML = createHeader();
+                div = document.createElement("div");
+                div.innerHTML = addForm();
+                root.appendChild(div); //div.appendChild(addForm());
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      function createForm() {
+        return _createForm.apply(this, arguments);
+      }
+
+      return createForm;
+    }()
   }]);
 
   return _default;
 }();
 
 
+
+function createHeader() {
+  var html = "<h1> This is Write Board</h1>";
+  return html;
+}
+
+function addForm() {
+  return "\n        <form action=\"writerAction\" method=\"post\">\n                <table  style=\"padding-top:50px\" align = center width=700 border=0 cellpadding=2 >\n                <tr>\n                    <td height=20 align= center bgcolor=#ccc><font color=white> \uAE00\uC4F0\uAE30</font></td>\n                </tr>\n                <tr>\n                    <td bgcolor=white>\n                    <table class = \"table2\">\n                            <tr>\n                            <td>\uC791\uC131\uC790</td>\n                            <td><input type =\"text\" name = name size=20 value = \"\"> </td>\n                            </tr>\n\n                            <tr>\n                            <td>\uC81C\uBAA9</td>\n                            <td><input type = text name = title size=60 placeholder=\"\uC785\uB825\uD558\uC138\uC694.\"></td>\n                            </tr>\n\n                            <tr>\n                            <td>\uB0B4\uC6A9</td>\n                            <td><textarea name = content cols=85 rows=15></textarea></td>\n                            </tr>\n\n                            <tr>\n                            <td>\uBE44\uBC00\uBC88\uD638</td>\n                            <td><input type = password name = pw size=10 maxlength=10></td>\n                            </tr>\n                            </table>\n\n                            <center>\n                            <input type = \"submit\" value=\"\uC791\uC131\">\n                            </center>\n                            </td>\n                </tr>\n        </table>\n    </form>";
+}
 
 /***/ }),
 

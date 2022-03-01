@@ -19,14 +19,13 @@ app.get("/board", (req, res) => {
     })
 })
 
-app.use("/write", (req, res) => {
-
-    fs.readFile(dbPath, 'utf8', (err, data) => {
-        if (err) throw alert('error 발생!');
-        const boardata  = JSON.parse(data);
-        res.json(boardata);
-    })
-})
+// app.use("/write", (req, res) => {
+//     fs.readFile(dbPath, 'utf8', (err, data) => {
+//         if (err) throw alert('error 발생!');
+//         const boardata  = JSON.parse(data);
+//         res.json(boardata);
+//     })
+// })
 
 app.get("/*", (req, res) => {
     res.sendFile(path.resolve("frontend", "static", "index.html"));
