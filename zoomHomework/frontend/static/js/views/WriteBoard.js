@@ -1,3 +1,5 @@
+import customAjax from "../ajax";
+
 export default class {
     constructor() {
         document.title = "WriteBoard";
@@ -12,11 +14,19 @@ export default class {
         
         const div = document.createElement("div");
         div.innerHTML = addForm();
-        const submit = div.querySelector("#submit")
-        submit.addEventListener("submit",() => console.log("submit"));
+        const submit = div.querySelector("#submit-form");
+        submit.addEventListener("click",submitForm);
         root.appendChild(div);
-        //div.appendChild(addForm());
     }
+}
+
+async function submitForm() {
+    const data = {
+        "title": "Ego is the Enemy10",
+        "author": "Ryan Holiday10"
+    }
+    const newData = JSON.parse(await customAjax('POST',`http://localhost:3000/board-save`,data));
+    console.log(newData);
 }
 
 function createHeader() {
@@ -26,10 +36,10 @@ function createHeader() {
 
 function addForm() {
     return `
-        <form action="board-save" method="post">
+        <form action="http://google.com" method="post">
                 <table  style="padding-top:50px" align = center width=700 border=0 cellpadding=2 >
                 <tr>
-                    <td height=20 align= center bgcolor=#ccc><font color=white> 글쓰기</font></td>
+                    <td height=20 align= center bgcolor=#ccc><font color=white>글쓰기</font></td>
                 </tr>
                 <tr>
                     <td bgcolor=white>
@@ -52,7 +62,7 @@ function addForm() {
                             </table>
 
                             <center>
-                                <button type="submit" id="submit">작성</button>
+                                <input type="button" id="submit-form"value="작성"/>
                             </center>
                             </td>
                 </tr>

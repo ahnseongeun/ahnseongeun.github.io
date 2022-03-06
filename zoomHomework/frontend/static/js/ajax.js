@@ -8,6 +8,7 @@ export default function customAjax(method, url, obj) {
     xhr.send(JSON.stringify(obj || null));
     const promise = new Promise((resolve, reject) => {
         xhr.onreadystatechange = (event) => {
+
             if(xhr.readyState === XMLHttpRequest.DONE) {
                 if(xhr.status === 200) {
                     resolve(xhr.responseText);

@@ -11,6 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
         //undefined 체크 안해주면 text작성할 때 화면 초기화
         if(e.target.href === undefined) return;
         navigateTo(e.target.href);
-    });  
+    });
     router();
 })
