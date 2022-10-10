@@ -8,3 +8,5 @@ const tag = (HTMLElementTagNameMap) =>
 export const div = tag("div");
 export const p = tag("p");
 export const span = tag("span");
+export const button = tag("button");
+export const input = tag("input");

@@ -3,7 +3,7 @@ export default function customAjax(method, url, obj) {
     xhr.open(method, url);
     xhr.setRequestHeader('Accept', 'application/json');
     if(method === 'PUT' || method === 'POST') {
-        xhr.setRequestHeader('Content-type', 'aplication/json');
+        xhr.setRequestHeader('Content-type', 'application/json');
     }
     xhr.send(JSON.stringify(obj || null));
     const promise = new Promise((resolve, reject) => {

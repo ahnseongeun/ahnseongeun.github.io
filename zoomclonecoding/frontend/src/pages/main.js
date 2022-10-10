@@ -5,13 +5,17 @@ import List from "../components/boardList.js";
 
 function Main(query) {
     
+    const handleClickWrite = () => {
+        Router.route("/write");
+      };
+      
     (async () => {
         const data = await getPost();
         //setPosts(data);
     })();
 
     const list = List().template;
-
+    console.log("Main Page");
     return {
         template: () => {
             div({class: "page center-box"}, [
@@ -23,6 +27,11 @@ function Main(query) {
                 ]),
                 list({
                     posts: query.get("page")
+                }),
+                button({
+                    name: "글쓰기",
+                    className: "write-btn",
+                    onClick: handleClickWrite,
                 })
             ])
         }

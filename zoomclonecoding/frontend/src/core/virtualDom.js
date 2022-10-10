@@ -2,7 +2,8 @@ import { Node } from "../types/node";
 import { Vdom } from "../types/vdom";
 
 export const VirtualDom = (() => {
-  let _oldNode;
+  let _oldNode = null;
+  
   const render = (node, $parent, index = 0) => {
     updateElement($parent, node, _oldNode, index);
     _oldNode = node;

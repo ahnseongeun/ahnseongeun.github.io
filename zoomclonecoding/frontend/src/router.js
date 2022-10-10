@@ -1,6 +1,5 @@
 import { Core } from "./core/core.js";
-import { div } from "./core/tag";
-// import { div } from "./core/tag.js";
+import { div } from "./core/tag.js";
 import Main from "./pages/main.js";
 import { Component } from "./types/component";
 
