@@ -1,4 +1,4 @@
-# Component
+# Components
 
 ## Component 정의
 - 웹 컴포넌트는 그 기능을 나머지 코드로부터 캡슐화하여 재사용 가능한 커스텀 엘리먼트를 생성하고 웹 앱에서 활용할 수 있도록 해주는 다양한 기술들의 모음
@@ -30,12 +30,11 @@
     let myShadowDom = myCustomElem.shadowRoot;
 ```
 
-- **mode: closed**로 사용자 정의 요소에 shadow root를 부착했다면, 외부로부터 shadow DOM에 접근할 수 없다.
+- **closed**로 사용자 정의 요소에 shadow root를 부착했다면, 외부로부터 shadow DOM에 접근할 수 없다.
 
 
 ## Virtual-Dom
-
-## Web-Component
+- Virtual DOM이란 Real DOM과 동기화 되며 메모리에 저장된 상태에서 변경 사항들을 먼저 반영한 뒤 기존 DOM과 비교 후 변경된 사항만을 DOM에 전달해 준다. 실제 DOM의 렌더링 횟수를 줄여주므로 성능에 적은 영향을 준다.
 
 
 
