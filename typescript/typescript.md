@@ -48,3 +48,105 @@ let c = [1, 2, 3]
 c.push("1")
 `=> javascript는 [ 1, 2, 3, '1' ]의 결과를 return 하지만 typescript는 문법적인 에러를 표시한다.`
 ```
+
+## 2.2 Types Of TS part One
+```javascript
+let a : number[] = [1, 2];
+let a1 = [1, 2];
+`=> 이렇게 해도 타입 스크립트가 number 배열 인식 ` 
+let b : string[] = ["i1","i2"];
+let c : boolean[] = [true, false];
+```
+
+```javascript
+const player : {
+    name: string,
+    age?:number
+} = {
+    name: "nico"
+}
+`=> Object 타입스크립트 설정 방법, 위의 상황은 age의 값이 없는 상태`
+
+if ( player.age && player.age < 10) {}
+`=> 해당 조건으로 타입 확인 가능`
+```
+
+```javascript
+type Player = {
+    name: string,
+    age?:number
+}
+
+const playerNico : player {
+    name:"nico"
+}
+`=> 타입을 커스텀해서 사용하는 방법`
+```
+
+```javascript
+type Age = number;
+type Name = string;
+type Player = {
+    name: Name,
+    age?: Age
+}
+
+const Nico : player {
+    name:"nico"
+}
+
+const Ahn : player {
+    name:"lynn",
+    age:12
+}
+`=> 커스텀 타입 사용 예시`
+```
+
+```javascript
+type Age = number;
+type Name = string;
+type Player = {
+    name: Name,
+    age?: Age
+}
+
+const Nico : player {
+    name:"nico"
+}
+
+const Ahn : player {
+    name:"lynn",
+    age:12
+}
+`=> 커스텀 타입 사용 예시`
+```
+
+```javascript
+function playerMaker(name:string) {
+    return {
+        name
+    }
+}
+
+const nico = playerMaker("nico");
+nico.age = 12
+`=> 타입 에러 발생`
+
+function playerMaker(name:string) : Player {
+    return {
+        name
+    }
+}
+
+const playerMaker = (name:string) : Player => ({name})
+const nico = playerMaker("nico");
+nico.age = 12
+`=> 정상 작동`
+```
+
+
+
+## 2.3 Types Of TS part Two
+
+## 2.4 Types Of TS part Three
+
