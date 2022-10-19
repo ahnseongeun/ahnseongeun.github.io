@@ -17,8 +17,12 @@ export default {
     },
     methods: {
         addTodo: function() {
-            localStorage.setItem(this.newTodoItem,this.newTodoItem);
-            this.clearInput();
+            if (this.newTodoItem !== '') {
+                var obj = {completed: false, item: this.newTodoItem}; 
+                //javascript 객체를 string으로 변환, stringify를 하지 않으면 value에 Object로 표시된다.
+                localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
+                this.clearInput();
+            }
         },
         clearInput: function() {
             this.newTodoItem = '';
@@ -33,7 +37,7 @@ input:focus {
 }
 
 .inputBox {
-    background: gray;
+    background: white;
     height: 50px;
     line-height: 50px;
     border-radius: 5px;

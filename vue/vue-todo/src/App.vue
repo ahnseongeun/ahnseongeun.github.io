@@ -40,7 +40,7 @@ export default {
 <style>
   body {
     text-align: center;
-    background-color: white;
+    background-color: gray;
   }
   input {
     border-style: groove;
