@@ -25,4 +25,18 @@ favicon & app generator에 이미지 넣고 html에 경로잡아주기
 
 ## VUE
 - v-model 이란
-`<input> 태그에서 입력된 text가 동적으로 vue에 매핑하는 역할`
+`<input> 태그에서 입력된 text가 동적으로 vue에 매핑하는 역할.`
+
+- v-for
+`v-bind:key 속성을 이용해서 key값을 기준으로 HTML에 for문 생성`
+`v-for에서는 index를 지원한다. `
+
+- v-bind
+`v-bind는 HTML 태그에 속성을 동적으로 부여 가능하게 한다.`
+## localStorage
+- localstorage를 이용해서 컴포넌트 간에 객체를 공유할 수 있다.
+하지만 화면, 데이터 동기화를 하기 위해서는 상당히 복잡하다.
+=> 여기서 props를 사용하면 편하겠지?
+
+## Props
+`v-bind: 내려보낼 Props 속성 이름 = "현재 위치의 컴포넌트 데이터 속성 "`
