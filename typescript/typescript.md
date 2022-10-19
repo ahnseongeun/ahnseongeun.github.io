@@ -144,9 +144,173 @@ nico.age = 12
 `=> 정상 작동`
 ```
 
-
-
 ## 2.3 Types Of TS part Two
+```javascript
+type Age = number;
+type Name = string;
+type Player = {
+    readonly name : Name
+    age?:Age
+}
+
+const playerMaker = (name:string) : Player => ({name})
+const nico = playerMaker("nico")
+nico.age = 12
+nico.name = "test"
+`=> 에러 발생 type을 readonly로 지정해서 객체의 데이터 값을 변경할 수 없다.`
+
+```
+```javascript
+const numbers =  readonly number[] = [1, 2, 3, 4] 
+numbers.push(1)
+`=> readonly이기 때문에 마찬가지로 에러 발생`
+```
+
+```javascript
+`Tuple : Array이며 크기 지정 및 타입 지정`
+const player : [string, number, boolean] = ["nick", 12, false]
+player[0] = 1 
+`=> 에러 발생 타입에러 때문에`
+
+const player : readonly [string, number, boolean] = ["nick", 12, false]
+player[0] = "hi" 
+`=> 에러 발생 readonly 때문에`
+```
+
+```javascript
+type Player = {
+    age?: number // number or undefined
+}
+```
+
+```javascript
+// any는 타입 스크립트에서 벗어나게 한다.
+const a : any[] = [1, 2, 3, 4]
+const b : any = true
+a + b 
+`=> 가능하다.`
+```
+
 
 ## 2.4 Types Of TS part Three
 
+```javascript
+let a: unknown;
+
+if ( typeof a === 'number') {
+    let b = a + 1
+}
+
+if ( typeof === 'string') {
+    let b = a.toUpperCase();
+}
+`=> 타입 형변환을 자동으로 한다.`
+```
+
+```javascript
+function hello() : void {
+    console.log('x')
+}
+const a = hello();
+a.toUpperCase() // 비어있는 것을 말한다.
+```
+
+```javascript
+`never 함수는 절대 return이 발생하지 않을 때 발생한다.`
+`n`
+function hello() : never {
+    throw new Error("xxx")
+}
+
+function hello(name:string|number){
+    if (typeof name === "string") {
+        name
+    } else if (typeof name === "number") {
+        name
+    } else {
+        name  // 여기는 string과 number가 둘다 아니기 때문에 never이다.
+    }
+}
+```
+
+## 3.0 Call Signatures
+```javascript
+function add(a:number, b:number): number {
+    return a + b
+}
+
+const add = (a:number, b:number) => a + b
+
+`call signatures란 함수에 마우스를 올렸을 때 보게 되는걸 말한다.
+ 함수를 어떻게 호출하고 반환하는지 알려준다.`
+```
+
+```javascript
+//call signatures 활용 방법
+type Add = (a:number, b:number) => number;
+
+const add:Add = (a, b) => a + b
+
+```
+
+## 3.1 Overloding
+### 오버로딩은 call signatures가 여러개 있는 함수이다. 
+```javascript
+type Add = {
+    (a: number, b: number) : number
+    (a: number, b: string) : number
+}
+
+const add: Add = (a, b) => {
+    if ( typeof b === "string" ) return a
+    return a + b
+}
+
+```
+
+```javascript
+Router.push({
+    path: "/home",
+    state: 1
+})
+
+.push("/home")
+
+=> 타입 스크립트로 변경
+type Config = {
+    path: string,
+    state: object
+}
+type Push = {
+    (path:string):void
+    (config: Config):void
+}
+
+const push:Push = (config) => {
+    if (typeof config === "string") { console.log(config) }
+    else {
+        console.log(config.pathl)
+    }
+}
+
+```
+
+```javascript
+type Add = {
+    (a: number, b: number): number,
+    (a: number, b: number, c:number ): number,
+}
+
+const add:Add = (a, b, c) => {
+    return a + b
+}
+`=> 타입 스크립트에서는 다른 개수의 파라미터를 가지게 되면, 나머지 파라미터도 타입을 지정해 줘야 한다`
+
+const add:Add = (a, b, c?:number) => {
+    if (c) return a +  b + c
+    return a + b
+}
+
+add(1, 2)
+add(1, 2, 3)
+```
