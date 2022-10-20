@@ -314,3 +314,55 @@ const add:Add = (a, b, c?:number) => {
 add(1, 2)
 add(1, 2, 3)
 ```
+
+## 3.2 Polymorphism (다형성)
+
+```javascript
+type SuperPrint = {
+    ( arr: number[]):void
+    ( arr: boolean[]):void
+}
+
+const superPrint: SuperPrint = (arr) => {
+    arr.forEach(i => console.log(i))
+}
+
+superPrint([1, 2, 3, 4]) // 가능
+superPrint([true, false, true]) // 가능
+superPrint(["a","b"]) // 불가능
+superPrint([1,2,3,false]) // 이렇게 하고 싶다면??
+```
+
+```javascript
+type SuperPrint = {
+    <T>( arr: T[]):T
+}
+
+const superPrint: SuperPrint = (arr) => arr[0]
+
+superPrint([1,2,3,false,"good"])
+
+```
+
+## 3.3 Generics Recap
+```javascript
+type SuperPrint = {<T>( arr: T[]):T}
+type SuperPrint = (a: any[]) => any
+`=> 이렇게 두개가 뭔 차이 인가??`
+
+const superPrint: SuperPrint = (arr) => arr[0]
+
+const d = superPrint([1, 2, true, false, "hello"])
+d.toUpperCase()
+`여기서 any는 에러가 나오지 않지만 T(Generic을 사용하면)
+ 타입 에러가 발생한다.
+`
+```
+
+```javascript
+type SuperPrint = {<T, M>( a: T[], b:M):T}
+
+const superPrint: SuperPrint = (arr) => arr[0]
+const d = superPrint([1, 2], "x")
+`=> 사용자의 요구에 따라 call signature를 생성한다.`
+```
