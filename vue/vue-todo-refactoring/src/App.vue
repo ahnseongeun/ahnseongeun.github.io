@@ -5,7 +5,7 @@
     <todo-input v-on:addTodoItem="addOneItem"></todo-input>
     <!-- v-bind: 내려보낼 Props 속성 이름 = "현재 위치의 컴포넌트 데이터 속성 "-->
     <todo-list v-bind:propsdata="todoItems" 
-      v-on:removeItem="removeOneItem(todoItem, index)"
+      v-on:removeItem="removeOneItem"
       v-on:toggleItem="toggleOneItem"
     ></todo-list>
     <todo-footer

@@ -1,18 +1,18 @@
 <template>
     <div>
-        <ul>
+        <transition-group name="list" tag="ul">
             <!-- v-for와 v-bind를 하나의 세트라고 생각하자. -->
             <!-- v-for에서는 index를 지원한다. -->
-            <li v-for="( todoItem, index ) in propsdata" v-bind:key="todoItem" class="shadow">
+            <li v-for="( todoItem, index ) in propsdata" v-bind:key="todoItem.item" class="shadow">
                 <i class="checkBtn fas fa-check" v-bind:class="{ checkBtnCompleted: todoItem.completed }" 
                 v-on:click="toggleComplete( todoItem, index )"></i>
                 <!-- v-bind는 HTML 태그에 속성을 동적으로 부여 가능하게 한다.-->
                 <span v-bind:class="{ textCompleted: todoItem.completed }">{{ todoItem.item }}</span>
-                <span class="removeBtn" v-on:click="removeTodo(todoItems, index)">
+                <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
                     <i class="fas fa-trash-alt"></i>
                 </span>
             </li>
-        </ul>
+        </transition-group>
     </div>
 </template>
 
@@ -67,6 +67,16 @@ li {
 .removeBtn {
     margin-left: auto;
     color: #de4343;
+}
+
+.list-enter-active,
+.list-leave-active  {
+  transition: all 1s;
+}
+.list-enter,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
 }
 
 </style>

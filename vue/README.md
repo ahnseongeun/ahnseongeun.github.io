@@ -40,3 +40,48 @@ favicon & app generator에 이미지 넣고 html에 경로잡아주기
 
 ## Props
 `v-bind: 내려보낼 Props 속성 이름 = "현재 위치의 컴포넌트 데이터 속성 "`
+
+## Modal
+- Modal은 template 태그에 transition 태그부터 태그까지
+  한번에 넣어준다.
+
+## Slot
+- Slot을 사용해서 특정 컴포넌트를 재사용 할 수 있게 해준다.
+
+## Transition
+- List에 Effect를 줄 때 사용한다.
+- 구현 관점: 
+- 사용 관점: 간단한 이펙트를 바로 적용할 수 있다.
+
+## ES6 for Vue js
+- const & let, Arrow Function, Enhanced Object Literals, Modules
+- ES6 (ECMAScript 2015)
+- Babel
+    - 구 버전 브라우저 중에서 ES6의 기능을 지원하지 않는 브라우저가 있어서 transpiling이 필요
+    - ES6의 문법을 각 브라우저의 호환 가능한 ES5로 변환하는 컴파일러
+- const & let
+    - 블록 단위 {}로 변수의 범위가 제한되었음
+    - const : 한번 선언한 값에 대해서 변경할 수 없음(상수 개념)
+    - let : 한번 선언한 값에 대해서 다시 선언할 수 없음
+- ES5 특징 - 변수의 Scope
+    - 기본 자바스크립트(ES5)는 { }에 상관없이 스코프가 설정 된다.
+    - Hoisting
+        - Hoisting이란 선언한 함수와 변수를 해석기가 가장 상단에 있는 것처럼 인식한다.
+        - js 해석기는 코드의 라인 순서와 관계 없이 함수선언식과 변수를 위한 메모리 공간을 먼저 확보한다.
+        - 따라서, function a()와 var는 코드의 최상단으로 끌어 올려진 것(hoisted)처럼 보인다.
+```javascript
+function f() {
+    {
+        let x;
+        {
+            // 새로운 블록안에 새로운 x의 스코프가 생김
+            const x = "sneaky";
+            // 위에 이미 const로 x를 선언했으므로 다시 값을 대입하면 에러 발생
+            x = "foo";
+        }
+        // 이전 블록 범위로 돌아왔기 때문에 `let x`에해당하는 메모리게 값을 대입
+        x = "bar";
+        let x = "inner";
+    }
+}
+```
