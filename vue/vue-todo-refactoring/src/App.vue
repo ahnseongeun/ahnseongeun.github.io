@@ -4,12 +4,17 @@
     <!-- v-on: 하위 컴포넌트에서 발생시킨 이벤트 이름="현재 컴포넌트 메소드 이름"-->
     <todo-input v-on:addTodoItem="addOneItem"></todo-input>
     <!-- v-bind: 내려보낼 Props 속성 이름 = "현재 위치의 컴포넌트 데이터 속성 "-->
-    <todo-list v-bind:propsdata="todoItems" v-on:removeItem="removeOneItem(todoItem, index)"></todo-list>
-    <todo-footer></todo-footer>
+    <todo-list v-bind:propsdata="todoItems" 
+      v-on:removeItem="removeOneItem(todoItem, index)"
+      v-on:toggleItem="toggleOneItem"
+    ></todo-list>
+    <todo-footer
+      v-on:clearAll="clearAllItems"
+    ></todo-footer>
   </div>
 </template>
 
-<script></script>
+<script>
 import TodoHeader from './components/TodoHeader.vue';
 import TodoInput from './components/TodoInput.vue';
 import TodoList from './components/TodoList.vue';
@@ -34,6 +39,7 @@ export default {
     }
   },
   methods: {
+    //여기서 로직 처리하는 것이 App Component 방식
     addOneItem: function(todoItem) {
       var obj = {completed: false, item: todoItem}; 
       localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
@@ -42,7 +48,17 @@ export default {
     removeOneItem: function(todoItem, index) {
       localStorage.removeItem(todoItem.item);
       this.todoItems.splice(index, 1); // javascript 배열에서 인덱스를 이용해서 지우고 새로운 배열 반환, slice는 기존 배열 변경 X
-    }
+    },
+    toggleOneItem : function(todoItem, index) { 
+      // App에 있는 todoItems를 변경하는 것이 좋다.
+      this.todoItems[index].completed = !this.todoItems[index].completed;
+      localStorage.removeItem(todoItem.item);
+      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+    },
+    clearAllItems: function() {
+      this.todoItems = [];
+      localStorage.clear();
+    },
   },
   created: function() {
         console.log('created');
