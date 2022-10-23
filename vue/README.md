@@ -40,6 +40,8 @@ favicon & app generator에 이미지 넣고 html에 경로잡아주기
 
 ## Props
 `v-bind: 내려보낼 Props 속성 이름 = "현재 위치의 컴포넌트 데이터 속성 "`
+<!-- v-on: 하위 컴포넌트에서 발생시킨 이벤트 이름="현재 컴포넌트 메소드 이름"-->
+<!-- v-bind: 내려보낼 Props 속성 이름 = "현재 위치의 컴포넌트 데이터 속성 "-->
 
 ## Modal
 - Modal은 template 태그에 transition 태그부터 태그까지
@@ -245,3 +247,54 @@ getters: {
 <p>{{ this.$store.getters.getNumber }}</p>
 <p>{{ this.$store.getters.doubleNumber }}</p>
 ```
+
+## mutations
+- state의 값을 변경할 수 있는 유일한 방법이자 메서드
+- mutation은 commit()으로 동작시킨다.
+
+```javascript
+state: { num: 10},
+mutation: {
+    printNumber: {
+        return state.num
+    },
+    sumNumbers(state, anotherNum) {
+        return state.num + anotherNum;
+    }
+}
+
+this.$store.commit('printNumbers');
+this.$store.commit('sumNumbers', 20);
+```
+
+```javascript
+state: { num: 10},
+mutation: {
+    modifystate(state, payload) {
+        console.log(payload.str);
+        return state.storeNum += payload.num;
+    }
+}
+
+// state을 변경하기 위해 mutations를 동작시킬 때 인자(payload)를 전달할 수 있음
+this.$store.commit('modifyState', {
+    str: 'passed from payload',
+    num: 20
+});
+```
+
+### state은 왜 직접 변경하지 않고 mutations로 변경할까?
+- 여러 개의 컴포넌트에서 아래와 같이 state 값을 변경하는 경우 어느 컴포넌트에서 해당 state를 변경했는지 추적하기가 어렵다.
+```javascript
+methods: {
+    increaseCounter() {
+        this.$store.state.counter++;
+    }
+}
+```
+- 특정 시점에 어떤 컴포넌트가 state를 접근하여 변경한건지 확인하기 어렵다.
+- 따라서, 뷰의 반응성을 거스르지 않게 명시적으로 상태 변화를 수행, 반응성, 디버깅, 테스팅 혜택
+
+## actions란?
+- 비동기 처리 로직을 선언하는 메서드. 비동기 로직을 담당하는 mutations
+- 데이터 요청, Promise, ES6 async과 같은 비동기 처리는 모두 actions에 선언
