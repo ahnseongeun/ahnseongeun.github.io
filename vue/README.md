@@ -85,3 +85,163 @@ function f() {
     }
 }
 ```
+
+## Arrow Function - 화살표 함수
+- 함수를 정의할 때 function이라는 키워드를 사용하지 않고 => 대체
+- 흔히 사용하는 콜백 함수의 문법을 간결화
+```javascript
+var arr = ["a","b","c"];
+arr.forEach(function(value) {
+    console.log(value);
+});
+
+var arr = ["a","b","c"];
+arr.forEach(value => console.log(value));
+```
+
+## Enhanced Object Literals - 향산된 객체 리터럴
+```javascript
+var dictionary = {
+    words: 100,
+    // ES5
+    lookup: function() {
+        console.log("find words");
+    },
+    // ES6
+    lookup() {
+        console.log("find words")
+    }
+}
+```
+
+## 객체의 속성명과 값 명이 동일할 때 아래와 같이 축약 가능
+```javascript
+var figures = 10;
+var dictionary = {
+    // figures : figures
+    figures;
+}
+```
+
+## Modules - 자바스크립트 모듈화 방법
+- 자바스크립트 모듈 로더 라이브러리(AMD, Commons JS) 기능을 js 언어 자체에서 지원
+- 호출되기 전까지는 코드 실행과 동작을 하지 않는 특징이 있음
+```javascript
+// lib/math.js
+export function sum(x, y) {
+    return x + y;
+}
+export var pi = 3.141593;
+
+// main.js
+import { sum } from 'lib/math.js'
+sum(1, 2);
+``` 
+
+```javascript
+// util.js
+export default function(x) {
+    return console.log(x);
+}
+
+// main.js
+import util from 'util.js';
+console.log(util);
+util("hi");
+
+// app.js
+import log from 'util.js';
+console.log(log);
+log("hi");
+```
+
+## Vuex - 상태 관리 라이브러리
+- 복잡한 애플리케이션의 컴포넌트들을 효율적으로 관리하는 Vuex 라이브러리 소개
+- Vuex 라이브러리의 주요 속성인 state, getters, mutations, actions 학습
+- Vuex를 더 쉽게 코딩할 수 있는 방법인 Helper 기능 소개
+- Vuex로 프로젝트를 구조화하는 방법과 모듈 구조화 방법 소개
+### Vuex란?
+- 무수히 많은 컴포넌트의 데이터를 관리하기 위한 상태 관리 패턴이자 라이브러리
+- React의 Flux 패턴에서 유래
+- Vue.js 중고급 개발자로 성장하기 위한 필수 관문
+
+## Flux란?
+- MVC 패턴의 복잡한 테이터 흐름 문제를 해결하는 개발 패턴
+    - Action => Dispatcher => Model => View
+1. action : 화면에서 발생하는 이벤트 또는 사용자 입력
+2. dispatcher : 데이터를 변경하는 방법, 메서드
+3. model : 화면에 표시할 데이터
+4. view : 사용자게에 비춰지는 화면    
+- MVC 패턴의 문제점
+    - 기능 추가 및 변경에 따라 생기는 문제점을 예측할 수 없음
+    - 앱이 복잡해지면서 생기는 업데이트 루프
+- Flux 패턴의 단방향 데이터 흐름
+    - 데이터의 흐름이 여러 갈래로 나뉘지 않고 단방향으로만 처리
+
+### Vuex가 왜 필요할까?
+- 복잡한 애플리케이션에서 컴포넌트의 개수가 많아지면 컴포넌트 간에 데이터 전달이 어려워진다.
+- 이벤트 버스로 해결?
+    - 어디서 이벤트를 보내는지 혹은 어디서 이벤트를 받았는지 알기 어려움
+    ```javascript
+    // Login.vue
+    eventBus.$emit('fetch', loginInfo);
+
+    // List.vue
+    eventBus.$emit('display', data => this.displayOnScreen(data));
+
+    // Chart.vue
+    eventBus.$emit('refreshData', chartData);
+    ```
+    `컴포넌트 간 데이터 전달이 명시적이지 않음`
+
+### Vuex로 해결할 수 있는 문제
+1. MVC 패턴에서 발생하는 구조적 오류
+2. 컴포넌트 간 데이터 전달 명시
+3. 여러 개의 컴포넌트에서 같은 데이터를 업데이트 할 때 동기화 문제
+
+### Vuex 컨셉
+- State: 컴포넌트 간에 공유하는 데이터 data()
+- View : 데이터를 표시하는 화면 template
+- Action : 사용자의 입력에 따라 데이터를 변경하는 methods
+
+### Vuex 구조
+- 컴포넌트 -> 비동기 로직 -> 동기 로직 -> 상태
+
+### Vuex 기술 요소
+- state : 여러 컴포넌트에 공유되는 데이터 data
+- getters : 연산된 state 값을 접근하는 속성 computed
+- mutations : state 값을 변경하는 이벤트 로직, 메서드 methods
+- actions : 비동기 처리 로직을 선언하는 메서드 aysnc methods
+```javascript
+// Vue
+data: {
+    message: 'Hello Vue.js!'
+}
+
+// Vuex
+state: {
+    message: 'Hello Vue.js!'
+}
+
+// Vue
+<p>{{ message }}</p>
+<p>{{ this.$store.state.message }}</p>
+```
+
+```javascript
+// getters : state 값을 접근하는 속성이자 computed() 처럼 미리 연산된 값을 접근하는 속성
+state: {
+    num: 10
+},
+getters: {
+    getNumber(state) {
+        return state.num;
+    },
+    doubleNumber(state) {
+        return state.num * 2;
+    }
+}
+
+<p>{{ this.$store.getters.getNumber }}</p>
+<p>{{ this.$store.getters.doubleNumber }}</p>
+```
